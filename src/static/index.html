@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <!-- <script src="../MVue.js"></script> -->
+</head>
+
+<body>
+    <div id="app">
+        {{person.name}}---{{person.age}}
+        <div>普通的 div 分隔新</div>
+        <!-- <div v-text="person.age">{{person.name}}</div> -->
+        <div v-text="msg"></div>
+        <div v-html="htmlStr"></div>
+        <input type="text" v-model="person.name"/>
+        <!-- v-for -->
+        <!-- { hidden: isActive } -->
+        <div v-bind:class="isActive">box shown</div>
+        <div :class="isActive">box shown</div>
+        <button v-on:click="onClickButton">测试事件命令</button>
+        <button @click="onClickButton">测试 @</button>
+        <!-- isActive=!isActive -->
+    </div>
+</body>
+
+</html>
+<script  defer>
+    // defer 对内联无效
+    // 等待 外部 MVue 加载完成
+    document.addEventListener('DOMContentLoaded',function(){
+        const vm = new MVue({
+            el: "#app",
+            data: function () {
+                return {
+                    msg: "v text 测试",
+                    person: {
+                        name: "markaa",
+                        age: 80
+                    },
+                    htmlStr: "<h2>测试 v-html</h2>",
+                    isActive: "hidden"
+                }
+            },
+            methods: {
+                onClickButton(e) {
+                    this.$data.msg += "1"
+                    console.log(this.$data.msg);
+                }
+            }
+        });
+        window.vm = vm;
+    });
+</script>
